@@ -1,0 +1,20 @@
+NOTE: Infered from OpenWeather https://openweathermap.org/forecast5
+Free subscription gives access for 3 hour 5 day forecast
+
+Required
+- weather (all of it e.g. weather.id)
+- main (all bar maybe sea level and ground level)
+- wind (all)
+- pop (prob of precipitation)
+- dt_txt (date as txt - YYYY-MM-DD HH:MM:SS)
+- sunrise, sunset
+
+Nice to have
+- clouds.all (Cloud Cover) (%)
+- visibility (Meters)
+- rain (amount in 3 hours - may generalise)
+- country
+
+Not Wanted
+- temp_fk
+- population
