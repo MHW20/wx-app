@@ -1,4 +1,5 @@
 import './home.css'
+import Search from '../features/Search/Search'
 
 function Home() {
   return (
@@ -6,7 +7,8 @@ function Home() {
       <div className="container">
         <div className="leftPanel">
           <div id='searchBoxContainer'>
-            
+            <Search
+            />
           </div>
           <div id='recentLocationsContainer'>
 
