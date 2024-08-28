@@ -8,6 +8,7 @@ function Home() {
         <div className="leftPanel">
           <div id='searchBoxContainer'>
             <Search
+              placeholder='Enter Location...'
             />
           </div>
           <div id='recentLocationsContainer'>
