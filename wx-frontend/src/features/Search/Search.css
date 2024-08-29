@@ -10,13 +10,19 @@
   align-items: center;
 }
 
+#searchIcon {
+  color: grey;
+  margin-left: 5%;
+}
+
 input {
   background-color: transparent;
   border: none;
   height: 100%;
-  width: 100%;
+  width: 90%;
   font-size: 1.5rem;
   color: black;
+  margin-left: 5%;
 }
 
 input:focus {

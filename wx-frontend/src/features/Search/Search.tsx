@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import './Search.css'
 import { FaSearch } from "react-icons/fa";
-import { fetchLocationbyLatLon } from "./services/searchService";
+import { useLocation } from "./hooks/SearchHooks";
+import debounce from 'lodash'
+
 
 type SearchProps = {
   placeholder: string
@@ -12,18 +14,16 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    fetchLocationbyLatLon(51.5085,-0.1257)
-  }, [input]);
+  const { isLoading, isError, data } = useLocation(input)
 
   return (
     <div id='searchBox'>
-      <FaSearch />
+      <FaSearch id='searchIcon'/>
       <input 
         placeholder={placeholder}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        >
+      >
       </input>
     </div>
   )
