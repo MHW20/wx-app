@@ -1,5 +1,5 @@
 import './home.css'
-import Search from '../features/Search/Search'
+import SearchContainer from '../features/Search/SearchContainer'
 
 function Home() {
   return (
@@ -7,8 +7,7 @@ function Home() {
       <div className="container">
         <div className="leftPanel">
           <div id='searchBoxContainer'>
-            <Search
-              placeholder='Enter Location...'
+            <SearchContainer
             />
           </div>
           <div id='recentLocationsContainer'>

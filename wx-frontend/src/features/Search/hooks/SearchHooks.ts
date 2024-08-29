@@ -1,12 +1,14 @@
-import { useQuery } from "react-query";
+import { useMemo } from "react";
+import { useQuery, QueryFunction } from "react-query";
 import { fetchForecastByLatLon, fetchLocationByName } from "../services/searchService";
+import debounce from 'lodash'
 
 export const useLocation = (input: string) => {
   return useQuery({
     queryKey: ["location", input],
-    enabled: !!input,
-    queryFn: () => fetchLocationByName(input)
-  })
+    queryFn: () => fetchLocationByName(input),
+    enabled: !!input
+  });
 }
 
 export const useForecast = (lat: number, lon: number) => {
