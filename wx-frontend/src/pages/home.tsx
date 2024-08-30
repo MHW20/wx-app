@@ -11,7 +11,7 @@ function Home() {
             />
           </div>
           <div id='recentLocationsContainer'>
-
+            
           </div>
         </div>
         <div className="rightPanel">

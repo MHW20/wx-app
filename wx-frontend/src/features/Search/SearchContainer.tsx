@@ -22,6 +22,7 @@ const SearchContainer: React.FC = () => {
       setLocations(updatedLocations);
       console.log("Locations : ", data);
     }
+    else setLocations(data)
   }, [data]);
 
   return (
@@ -31,7 +32,7 @@ const SearchContainer: React.FC = () => {
         inputValue={input}
         onInputChange={handleInputChange}
       />
-      {(locations && input.length !== 0) ? (
+      {(locations) ? (
         <SearchResultsList 
           results={locations}
         />

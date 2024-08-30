@@ -9,6 +9,7 @@
 
 .result-option-box {
   padding: 2% 5%;
+  border-bottom: 1px solid rgb(153, 153, 153);
 }
 
 .result-option-box:hover {
