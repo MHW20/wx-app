@@ -5,7 +5,7 @@ export type SearchBoxProps = {
 };
 
 export type SearchResultsListProps = {
-  results: LocationInfo[]
+  results: LocationInfo[],
 };
 
 export type LocationInfo = {

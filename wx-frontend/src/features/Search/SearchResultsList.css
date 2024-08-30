@@ -2,10 +2,19 @@
   width: 100%;
   background-color: white;
   color: black;
-  display: flex;
-  flex-direction: column;
+  display: block;
   border-radius: 2%;
   margin-top: 1%;
-  max-height: 50%;
-  overflow-y: scroll;
+}
+
+.result-option-box {
+  padding: 2% 5%;
+}
+
+.result-option-box:hover {
+  background-color: rgb(155, 155, 155);
+}
+
+.result-option {
+  margin-left: 5%;
 }

@@ -4,6 +4,7 @@ import SearchBox from './SearchBox';
 import { isArrayEmpty } from "../../utils/utility";
 import { LocationInfo } from "./types/searchTypes";
 import SearchResultsList from "./SearchResultsList";
+import { changeCountryCodeToCountry } from "./utils/locationTransformation";
 
 const SearchContainer: React.FC = () => {
   const [input, setInput] = useState("");
@@ -17,25 +18,26 @@ const SearchContainer: React.FC = () => {
 
   useEffect(() => {
     if (!isArrayEmpty(data)) {
-      setLocations(data);
+      const updatedLocations: LocationInfo[] = changeCountryCodeToCountry(data)
+      setLocations(updatedLocations);
       console.log("Locations : ", data);
     }
   }, [data]);
 
   return (
     <>
-    <SearchBox
-      placeholder="Enter Location..."
-      inputValue={input}
-      onInputChange={handleInputChange}
-    />
-    {locations ? (
-      <SearchResultsList 
-        results={locations}
+      <SearchBox
+        placeholder="Enter Location..."
+        inputValue={input}
+        onInputChange={handleInputChange}
       />
-    ) : (
-      <>
-      </>
+      {(locations && input.length !== 0) ? (
+        <SearchResultsList 
+          results={locations}
+        />
+      ) : (
+        <>
+        </>
     )}
     </>
   );
