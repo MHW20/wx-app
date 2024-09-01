@@ -1,9 +1,9 @@
 import React from "react";
 import './SearchBox.css';
 import { FaSearch } from "react-icons/fa";
-import { SearchBoxProps } from "./types/searchTypes";
+import { SearchContainerProps } from "./types/searchTypes";
 
-const SearchBox: React.FC<SearchBoxProps> = ({
+const SearchBox: React.FC<SearchContainerProps> = ({
   placeholder,
   inputValue,
   onInputChange,

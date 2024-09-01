@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <div className="container">
-        <div className="leftPanel">
+        <div className="mainPanel">
           <div id='searchBoxContainer'>
             <SearchContainer
             />
@@ -13,9 +13,6 @@ function Home() {
           <div id='recentLocationsContainer'>
             
           </div>
-        </div>
-        <div className="rightPanel">
-
         </div>
       </div>
     </>
