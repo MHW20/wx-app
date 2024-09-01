@@ -1,4 +1,33 @@
 .recentLocation-item {
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
   background-color: white;
   color: black;
+  border: 1px solid black;
+}
+
+.arrow-column {
+  grid-row-start: 1;
+  grid-column-start: 3;
+  grid-row-end: 3;
+  grid-column-end: 3;
+  text-align: center;
+  align-content: center;
+}
+
+.wx-details {
+  text-align: right;
+}
+
+.wx-meta {
+  text-align: left;
+}
+
+#location-name {
+  align-content: end;
+}
+
+#location-temp {
+  align-content: end;
 }
