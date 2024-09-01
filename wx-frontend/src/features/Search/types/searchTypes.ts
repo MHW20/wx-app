@@ -1,4 +1,4 @@
-export type SearchContainerProps = {
+export type SearchBoxProps = {
   placeholder: string;
   inputValue: string;
   onInputChange: (value: string) => void;

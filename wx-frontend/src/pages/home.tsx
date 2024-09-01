@@ -1,5 +1,6 @@
 import './home.css'
 import SearchContainer from '../features/Search/SearchContainer'
+import RecentLocationsContainer from '../features/RecentLocations/RecentLocationsContainer'
 
 function Home() {
   return (
@@ -11,7 +12,7 @@ function Home() {
             />
           </div>
           <div id='recentLocationsContainer'>
-            
+            <RecentLocationsContainer />
           </div>
         </div>
       </div>
