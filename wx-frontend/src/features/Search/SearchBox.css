@@ -11,6 +11,7 @@
 
 #searchIcon {
   color: grey;
+  padding-right: max(1vw, 0.5rem);
 }
 
 input {

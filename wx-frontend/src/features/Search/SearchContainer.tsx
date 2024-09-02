@@ -6,7 +6,8 @@ import { LocationInfo } from "./types/searchTypes";
 import SearchResultsList from "./SearchResultsList";
 import { changeCountryCodeToCountry } from "./utils/locationTransformation";
 
-const SearchContainer: React.FC = () => {
+const SearchContainer: React.FC = ({
+}) => {
   const [input, setInput] = useState("");
   const [locations, setLocations] = useState<LocationInfo[]>()
 
@@ -32,14 +33,11 @@ const SearchContainer: React.FC = () => {
         inputValue={input}
         onInputChange={handleInputChange}
       />
-      {(locations) ? (
+      {(locations) && (
         <SearchResultsList 
           results={locations}
         />
-      ) : (
-        <>
-        </>
-    )}
+      )}
     </>
   );
 };

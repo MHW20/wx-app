@@ -1,7 +1,3 @@
-export type recentLocationContainerProps = {
-
-}
-
 export type simpleLocationWeather = {
   name: string
   country: string

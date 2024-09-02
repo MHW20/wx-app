@@ -1,6 +1,7 @@
 import './home.css'
 import SearchContainer from '../features/Search/SearchContainer'
 import RecentLocationsContainer from '../features/RecentLocations/RecentLocationsContainer'
+import { useState } from 'react'
 
 function Home() {
   return (
@@ -8,8 +9,7 @@ function Home() {
       <div className="container">
         <div className="mainPanel">
           <div id='searchBoxContainer'>
-            <SearchContainer
-            />
+            <SearchContainer />
           </div>
           <div id='recentLocationsContainer'>
             <RecentLocationsContainer />

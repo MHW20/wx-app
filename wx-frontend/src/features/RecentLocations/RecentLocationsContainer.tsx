@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { recentLocationContainerProps, simpleLocationWeather } from "./types/recentLocationTypes";
+import { simpleLocationWeather } from "./types/recentLocationTypes";
 import './RecentLocationList.css'
 
 const RecentLocationsContainer: React.FC = () => {
