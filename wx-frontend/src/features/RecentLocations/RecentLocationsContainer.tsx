@@ -39,10 +39,10 @@ const RecentLocationsContainer: React.FC = () => {
           <div className='arrow-column'>
             <div>{'>'}</div>
           </div>
-          <div className='wx-meta'>
+          <div className='wx-meta' id='location-country'>
             <div>{location.country}</div>
           </div>
-          <div className='wx-details'>
+          <div className='wx-details' id='location-wx-symbol'>
             <div>{location.curr_wx_symbol}</div>
           </div>
         </div>

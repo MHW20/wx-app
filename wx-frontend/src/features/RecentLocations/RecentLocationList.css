@@ -5,6 +5,7 @@
   background-color: white;
   color: black;
   border: 1px solid black;
+  padding: 0.5rem 0.25rem;
 }
 
 .arrow-column {
@@ -25,9 +26,23 @@
 }
 
 #location-name {
+  font-size: 1.5em;
+  font-weight: 200;
   align-content: end;
 }
 
 #location-temp {
+  font-size: 1.5em;
+  font-weight: 600;
   align-content: end;
+}
+
+#location-country {
+  font-size: 1em;
+  font-weight: 600;
+  font-style: italic;
+}
+
+#location-wx-symbol {
+  
 }

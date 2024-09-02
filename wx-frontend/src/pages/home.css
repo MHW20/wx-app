@@ -5,8 +5,9 @@
 
 .container {
   display: flex;
-  width: 99vw;
-  height: 30vh;
+  min-height: 30vh;
+  max-width: 1200px;
+  margin-inline: auto;
 }
 
 .mainPanel {
@@ -14,21 +15,22 @@
   display: flex;
   flex-direction: column;
   padding: 2%;
-  background-color: #e04700
+  background-color: #e04700;
 }
 
 #searchBoxContainer {
   height: 25%;
-  margin-bottom: 1.5vh;
+  margin-block: max(1rem, 2vh);;
 }
 
 #recentLocationsContainer {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-around;
-  column-gap: 1.33%;
-  height: 72.5%;
-  border: 2px dotted white;
-  padding: 2vh 2.5vw;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+}
+
+@media (max-width: 600px) {
+  #recentLocationsContainer {
+    grid-template-columns: 1fr;
+  }
 }
