@@ -29,7 +29,7 @@ const RecentLocationsContainer: React.FC = () => {
   return (
     locationsWeather?.map((location, index) => {
       return (
-        <div className='recentLocation-item' key={index}>
+        <div className='recent-location-item' key={index}>
           <div className='wx-meta' id='location-name'>
             <div>{location.name}</div>
           </div>

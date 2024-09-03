@@ -9,8 +9,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onInputChange,
 }) => {
   return (
-    <div id="searchBox">
-      <FaSearch id="searchIcon" />
+    <div id="search-box">
+      <FaSearch id="search-icon" />
       <input
         placeholder={placeholder}
         value={inputValue}

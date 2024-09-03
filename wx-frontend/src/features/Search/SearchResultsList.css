@@ -1,5 +1,7 @@
+/* TODO - Change right hand min for better scaling when window is > 1200px */
+
 #results-list {
-  width: min(95%, 1200px - 4vw);
+  width: min(95%, 1200px - 4vw); 
   background-color: white;
   color: black;
   display: block;
