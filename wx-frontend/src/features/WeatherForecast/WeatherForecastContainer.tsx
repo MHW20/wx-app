@@ -1,68 +1,78 @@
 import React, { useEffect, useState } from "react"
-import { WeatherForecastContainerProps, detailedLocationWeather, metaLocationWeather } from "./types/weatherForecastTypes";
+import { WeatherForecastContainerProps, WeatherForecastDetailed, WeatherForecastMeta, WeatherForecastResponse, WeatherListItem } from "./types/weatherForecastTypes";
 import { useForecast } from "./hooks/weatherForecastHook";
+import { metersPerSecondToMilesPerHour } from "./utils/WeatherForecastUtility";
 
 const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
   selectedLocation
 }) => {
 
-  const fullWeatherInfo = useForecast(selectedLocation.lat, selectedLocation.lon)
+  const { isLoading, isError, isSuccess, data: fullWeatherInfo } = useForecast(selectedLocation.lat, selectedLocation.lon)
 
-  console.log(fullWeatherInfo)
+  console.log('SELECTED LOCATION : ', fullWeatherInfo)
+  console.log('FULL RESPONSE : ', fullWeatherInfo)
 
-  const [metaWeather, setMetaWeather] = useState<metaLocationWeather>(
-    {
-      name: 'Springfield',
-      country: 'United States',
-      min_temp: 24,
-      max_temp: 13,
-      sunrise: 1661834187,
-      sunset: 1661882248,
-      timezone: 7200
+  const parseAndTransformForecast = (forecast: WeatherForecastResponse): {
+    metaForecast: WeatherForecastMeta
+    detailedForecast: WeatherForecastDetailed[]
+  } => {
+    let detailedForecast: WeatherForecastDetailed[] = []
+    let tempMax = 0
+    let tempMin = 0
+
+    let index = 0
+    for (let item of forecast.list) {
+      console.log('ITEM : ', item)
+      
+      let temp = item.main.temp
+      tempMax = Math.max(temp, tempMax)
+      tempMin = Math.min(temp, tempMin)
+
+      const [date, time] = item.dt_txt.split(' ')
+
+      detailedForecast[index] = {
+        temp: temp,
+        feels_like: item.main.feels_like,
+        pressure: item.main.pressure,
+        humidity: item.main.humidity,
+        wx_main: item.weather[0].main,
+        wx_desc: item.weather[0].description,
+        precip_prob: item.pop,
+        cloud_cover: item.clouds.all,
+        wind_deg: item.wind.deg,
+        wind_speed: metersPerSecondToMilesPerHour(item.wind.speed),
+        wind_gust: metersPerSecondToMilesPerHour(item.wind.gust),
+        date: date,
+        time: time
+      }
+      
+
+      index++
     }
-  )
 
-  const [locationsWeather, setLocationsWeather] = useState<detailedLocationWeather[]>(
-    [{
-      temp: 23,
-      feels_like: 21,
-      pressure: 1012,
-      humidity: 69,
-      wx_main: 'Rain',
-      wx_desc: 'light rain',
-      precip_prob: 0.32,
-      cloud_cover: 72,
-      wind_speed: 0.62,
-      wind_gust: 1.04,
-      date_time: '2024-09-03 15:00:00'
-    },
-    {
-      temp: 22,
-      feels_like: 21,
-      pressure: 1012,
-      humidity: 68,
-      wx_main: 'Rain',
-      wx_desc: 'light rain',
-      precip_prob: 0.31,
-      cloud_cover: 70,
-      wind_speed: 0.61,
-      wind_gust: 1.01,
-      date_time: '2024-09-03 18:00:00'
-    },
-    {
-      temp: 21,
-      feels_like: 19,
-      pressure: 1012,
-      humidity: 67,
-      wx_main: 'Rain',
-      wx_desc: 'light rain',
-      precip_prob: 0.34,
-      cloud_cover: 68,
-      wind_speed: 0.63,
-      wind_gust: 0.99,
-      date_time: '2024-09-03 21:00:00'
-    }]
-  )
+    const metaForecast: WeatherForecastMeta = {
+      name: forecast.city.name, 
+      country: forecast.city.country, 
+      min_temp: tempMin, 
+      max_temp: tempMax,
+      sunrise: forecast.city.sunrise,
+      sunset: forecast.city.sunset,
+      timezone: forecast.city.timezone,
+    }
+    
+    return {
+      'metaForecast': metaForecast,
+      'detailedForecast': detailedForecast,
+    }
+  }
+
+  if (isSuccess){
+    const {metaForecast, detailedForecast} = parseAndTransformForecast(fullWeatherInfo)
+  
+    console.log('METADATA AFTER TRANSFORMED: ', metaForecast)
+    console.log('FORECAST AFTER TRANSFORMED: ', detailedForecast)
+  }
+
   return (
     <div>a</div>
   )

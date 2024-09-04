@@ -54,11 +54,9 @@ const RecentLocationsContainer: React.FC<recentLocationsContainerProps> = ({
     }]
   )
 
-  console.log(locationsWeather)
 
   const handleSelectedLocation = (index: number) => {
     const selectedLocation = locationsMeta[index];
-    console.log('RECENT LOCATIONS SELECTED : ', selectedLocation)
     setSelectedLocation(selectedLocation);
   }
 

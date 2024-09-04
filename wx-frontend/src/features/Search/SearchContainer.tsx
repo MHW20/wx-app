@@ -20,7 +20,6 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const handleSelectedLocation = (index: number) => {
     const selectedLocation = locations![index];
-    console.log('SEARCH RESULTS LIST SELECTED : ', selectedLocation)
     setSelectedLocation(selectedLocation);
   }
 
