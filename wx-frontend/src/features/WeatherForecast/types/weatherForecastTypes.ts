@@ -1,5 +1,7 @@
+import { LocationInfo } from "../../Search/types/searchTypes"
+
 export type WeatherForecastContainerProps = {
-  
+  selectedLocation: LocationInfo
 }
 
 export type detailedLocationWeather = {

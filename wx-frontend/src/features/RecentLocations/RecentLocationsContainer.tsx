@@ -1,8 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { simpleLocationWeather } from "./types/recentLocationTypes";
+import { recentLocationsContainerProps, simpleLocationWeather } from "./types/recentLocationTypes";
 import './RecentLocationList.css'
+import { LocationInfo } from "../Search/types/searchTypes";
 
-const RecentLocationsContainer: React.FC = () => {
+const RecentLocationsContainer: React.FC<recentLocationsContainerProps> = ({
+  setSelectedLocation
+}) => {
+  const [locationsMeta, setLocationsMeta] = useState<LocationInfo[]>(
+    [{
+      name:"Springfield",
+      local_names:{"uk":"Спрингфілд","en":"Springfield","lt":"Springfildas","pl":"Springfield","ru":"Спрингфилд","ta":"ஸ்பிரிங்ஃபீல்ட்"},
+      lat:39.7990175,
+      lon:-89.6439575,
+      country:"US",
+      state:"Illinois"
+    },
+    {
+      name:"Springfield",
+      local_names:{"uk":"Спрингфілд","en":"Springfield","lt":"Springfildas","pl":"Springfield","ru":"Спрингфилд","ta":"ஸ்பிரிங்ஃபீல்ட்"},
+      lat:39.7990175,
+      lon:-89.6439575,
+      country:"US",
+      state:"Illinois"
+    },
+    {
+      name:"Springfield",
+      local_names:{"uk":"Спрингфілд","en":"Springfield","lt":"Springfildas","pl":"Springfield","ru":"Спрингфилд","ta":"ஸ்பிரிங்ஃபீல்ட்"},
+      lat:39.7990175,
+      lon:-89.6439575,
+      country:"US",
+      state:"Illinois"
+    }]
+  )
+
   const [locationsWeather, setLocationsWeather] = useState<simpleLocationWeather[]>(
     [{
       name: 'Springfield',
@@ -26,10 +56,20 @@ const RecentLocationsContainer: React.FC = () => {
 
   console.log(locationsWeather)
 
+  const handleSelectedLocation = (index: number) => {
+    const selectedLocation = locationsMeta[index];
+    console.log('RECENT LOCATIONS SELECTED : ', selectedLocation)
+    setSelectedLocation(selectedLocation);
+  }
+
   return (
     locationsWeather?.map((location, index) => {
       return (
-        <div className='recent-location-item' key={index}>
+        <div 
+          className='recent-location-item' 
+          key={index}
+          onClick={() => handleSelectedLocation(index)}
+        >
           <div className='wx-meta' id='location-name'>
             <div>{location.name}</div>
           </div>

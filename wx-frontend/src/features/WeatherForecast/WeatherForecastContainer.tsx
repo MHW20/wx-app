@@ -1,9 +1,14 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { WeatherForecastContainerProps, detailedLocationWeather, metaLocationWeather } from "./types/weatherForecastTypes";
+import { useForecast } from "./hooks/weatherForecastHook";
 
 const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
-
+  selectedLocation
 }) => {
+
+  const fullWeatherInfo = useForecast(selectedLocation.lat, selectedLocation.lon)
+
+  console.log(fullWeatherInfo)
 
   const [metaWeather, setMetaWeather] = useState<metaLocationWeather>(
     {

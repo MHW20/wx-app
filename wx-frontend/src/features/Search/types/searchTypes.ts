@@ -1,3 +1,7 @@
+export type SearchContainerProps = {
+  setSelectedLocation: (value: LocationInfo) => void
+}
+
 export type SearchBoxProps = {
   placeholder: string;
   inputValue: string;
@@ -6,6 +10,7 @@ export type SearchBoxProps = {
 
 export type SearchResultsListProps = {
   results: LocationInfo[],
+  handleSelectedLocation: (index: number) => void
 };
 
 export type LocationInfo = {

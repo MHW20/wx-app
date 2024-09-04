@@ -6,13 +6,18 @@ import { isUndefinedOrEmpty } from "../../utils/utility";
 
 const SearchResultsList: React.FC<SearchResultsListProps> = ({
   results,
+  handleSelectedLocation
 }) => {
 
   return (
     <div id='results-list'>
-      {results.map((result, id) => {
+      {results.map((result, index) => {
         return (
-          <div className="result-option-box" key={id}>
+          <div 
+            className="result-option-box" 
+            key={index}
+            onClick={() => handleSelectedLocation(index)}
+          >
             <IoLocationOutline />
             <span className='result-option'>
               <span style={{ fontWeight: '700'}}>{result.name} {' '}</span>
