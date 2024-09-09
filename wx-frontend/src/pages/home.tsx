@@ -7,6 +7,8 @@ import { LocationInfo } from '../features/Search/types/searchTypes'
 
 function Home() {
   const [selectedLocation, setSelectedLocation] = useState<LocationInfo>()
+
+  console.log('RE-RERENDERED HOME PAGE')
   return (
     <>
       <div className="container">
@@ -24,12 +26,15 @@ function Home() {
           </div>
         </div>
         <div className="forecast-wrapper">
-          <div id='weather-forecast-container'>
+          <div className='weather-forecast-container'>
             { selectedLocation ? 
               ( <WeatherForecastContainer 
-                selectedLocation={selectedLocation}
-              /> ) :
-              (<div></div>)}
+                  selectedLocation={selectedLocation}
+                /> 
+              ) :
+              (<p id='empty-location-info'>
+                Select a location
+              </p>)}
           </div>
         </div>
       </div>

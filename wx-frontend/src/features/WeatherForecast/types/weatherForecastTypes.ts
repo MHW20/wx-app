@@ -92,8 +92,8 @@ export type WeatherForecastDetailed = {
 export type WeatherForecastMeta = {
   name: string,
   country: string,
-  min_temp: number,
-  max_temp: number,
+  min_temp: number[],
+  max_temp: number[],
   sunrise: number,
   sunset: number,
   timezone: number

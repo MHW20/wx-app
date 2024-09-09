@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { WeatherForecastContainerProps, WeatherForecastDetailed, WeatherForecastMeta, WeatherForecastResponse, WeatherListItem } from "./types/weatherForecastTypes";
 import { useForecast } from "./hooks/weatherForecastHook";
-import { metersPerSecondToMilesPerHour } from "./utils/WeatherForecastUtility";
+import { getDayOfWeekString, metersPerSecondToMilesPerHour } from "./utils/WeatherForecastUtility";
 
 const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
   selectedLocation
 }) => {
 
+  console.log('SELECTED LOCATION : ', selectedLocation)
+
   const { isLoading, isError, isSuccess, data: fullWeatherInfo } = useForecast(selectedLocation.lat, selectedLocation.lon)
 
-  console.log('SELECTED LOCATION : ', fullWeatherInfo)
   console.log('FULL RESPONSE : ', fullWeatherInfo)
 
   const parseAndTransformForecast = (forecast: WeatherForecastResponse): {
@@ -17,20 +18,31 @@ const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
     detailedForecast: WeatherForecastDetailed[]
   } => {
     let detailedForecast: WeatherForecastDetailed[] = []
-    let tempMax = 0
-    let tempMin = 0
+    let tempMax = new Array(5).fill(Number.MIN_SAFE_INTEGER)
+    let tempMin = new Array(5).fill(Number.MAX_SAFE_INTEGER)
 
-    let index = 0
+    const timezoneSecondsFromUTC = forecast.city.timezone
+
+    let detailedForecastIndex = 0
+    let dayIndex = 0
+    let previousDate: Date | null = null
+
     for (let item of forecast.list) {
-      console.log('ITEM : ', item)
-      
+      const localTime: number = (item.dt + timezoneSecondsFromUTC) * 1000 // Converted to milliseconds
+      const localDate = new Date(localTime)
+      const isNextDay = previousDate && localDate.getDate() !== previousDate.getDate()
+
       let temp = item.main.temp
-      tempMax = Math.max(temp, tempMax)
-      tempMin = Math.min(temp, tempMin)
+      
+      tempMax[dayIndex] = Math.max(temp, tempMax[dayIndex])
+      tempMin[dayIndex] = Math.min(temp, tempMin[dayIndex])
 
-      const [date, time] = item.dt_txt.split(' ')
+      if (isNextDay) dayIndex++
+      if (dayIndex === 5) break
 
-      detailedForecast[index] = {
+      previousDate = localDate
+
+      detailedForecast[detailedForecastIndex] = {
         temp: temp,
         feels_like: item.main.feels_like,
         pressure: item.main.pressure,
@@ -42,12 +54,10 @@ const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
         wind_deg: item.wind.deg,
         wind_speed: metersPerSecondToMilesPerHour(item.wind.speed),
         wind_gust: metersPerSecondToMilesPerHour(item.wind.gust),
-        date: date,
-        time: time
+        date: `${getDayOfWeekString(localDate)} ${localDate.getDate()}`,
+        time: localDate.toTimeString().slice(0, 8)
       }
-      
-
-      index++
+      detailedForecastIndex++
     }
 
     const metaForecast: WeatherForecastMeta = {
@@ -57,7 +67,7 @@ const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
       max_temp: tempMax,
       sunrise: forecast.city.sunrise,
       sunset: forecast.city.sunset,
-      timezone: forecast.city.timezone,
+      timezone: timezoneSecondsFromUTC,
     }
     
     return {
