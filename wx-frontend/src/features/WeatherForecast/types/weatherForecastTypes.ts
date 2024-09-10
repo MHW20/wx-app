@@ -4,6 +4,14 @@ export type WeatherForecastContainerProps = {
   selectedLocation: LocationInfo
 }
 
+export type WeatherForecastProps = {
+  detailedWeatherForecast: WeatherForecastDetailed[][]
+}
+
+export type WeatherForecastSummaryProps = {
+  metaWeatherForecast: WeatherForecastMeta
+}
+
 type Coordinates = {
   lat: number;
   lon: number;

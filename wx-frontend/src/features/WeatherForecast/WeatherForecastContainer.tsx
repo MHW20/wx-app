@@ -2,28 +2,24 @@ import React, { useEffect, useState } from "react"
 import { WeatherForecastContainerProps, WeatherForecastDetailed, WeatherForecastMeta, WeatherForecastResponse, WeatherListItem } from "./types/weatherForecastTypes";
 import { useForecast } from "./hooks/weatherForecastHook";
 import { getDayOfWeekString, metersPerSecondToMilesPerHour } from "./utils/WeatherForecastUtility";
+import WeatherForecastSummary from "./WeatherForecastSummary";
+import WeatherForecast from "./WeatherForecast";
 
 const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
   selectedLocation
 }) => {
-
-  console.log('SELECTED LOCATION : ', selectedLocation)
-
   const { isLoading, isError, isSuccess, data: fullWeatherInfo } = useForecast(selectedLocation.lat, selectedLocation.lon)
-
-  console.log('FULL RESPONSE : ', fullWeatherInfo)
 
   const parseAndTransformForecast = (forecast: WeatherForecastResponse): {
     metaForecast: WeatherForecastMeta
-    detailedForecast: WeatherForecastDetailed[]
+    detailedForecast: WeatherForecastDetailed[][]
   } => {
-    let detailedForecast: WeatherForecastDetailed[] = []
+    let detailedForecast: WeatherForecastDetailed[][] = [[]]
     let tempMax = new Array(5).fill(Number.MIN_SAFE_INTEGER)
     let tempMin = new Array(5).fill(Number.MAX_SAFE_INTEGER)
 
     const timezoneSecondsFromUTC = forecast.city.timezone
 
-    let detailedForecastIndex = 0
     let dayIndex = 0
     let previousDate: Date | null = null
 
@@ -37,12 +33,15 @@ const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
       tempMax[dayIndex] = Math.max(temp, tempMax[dayIndex])
       tempMin[dayIndex] = Math.min(temp, tempMin[dayIndex])
 
-      if (isNextDay) dayIndex++
+      if (isNextDay) {
+        dayIndex++
+        detailedForecast[dayIndex] = [];
+      }
       if (dayIndex === 5) break
 
       previousDate = localDate
 
-      detailedForecast[detailedForecastIndex] = {
+      detailedForecast[dayIndex].push({
         temp: temp,
         feels_like: item.main.feels_like,
         pressure: item.main.pressure,
@@ -56,8 +55,8 @@ const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
         wind_gust: metersPerSecondToMilesPerHour(item.wind.gust),
         date: `${getDayOfWeekString(localDate)} ${localDate.getDate()}`,
         time: localDate.toTimeString().slice(0, 8)
-      }
-      detailedForecastIndex++
+      })
+      console.log('Forecast : ', detailedForecast)
     }
 
     const metaForecast: WeatherForecastMeta = {
@@ -76,15 +75,32 @@ const WeatherForecastContainer: React.FC<WeatherForecastContainerProps> = ({
     }
   }
 
+  let metaWeatherForecast: WeatherForecastMeta | null = null
+  let detailedWeatherForecast: WeatherForecastDetailed[][] = [[]]
+
   if (isSuccess){
-    const {metaForecast, detailedForecast} = parseAndTransformForecast(fullWeatherInfo)
+    let {metaForecast, detailedForecast} = parseAndTransformForecast(fullWeatherInfo)
   
     console.log('METADATA AFTER TRANSFORMED: ', metaForecast)
     console.log('FORECAST AFTER TRANSFORMED: ', detailedForecast)
+
+    metaWeatherForecast = metaForecast
+    detailedWeatherForecast = detailedForecast
   }
 
   return (
-    <div>a</div>
+    <>
+      { metaWeatherForecast && (
+        <WeatherForecastSummary
+          metaWeatherForecast={metaWeatherForecast}
+        />
+      )}
+      { detailedWeatherForecast.length > 0 && (
+        <WeatherForecast 
+          detailedWeatherForecast={detailedWeatherForecast}
+        />
+      )}
+    </>
   )
 }
 
