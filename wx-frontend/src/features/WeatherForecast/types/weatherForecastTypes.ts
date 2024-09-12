@@ -6,10 +6,12 @@ export type WeatherForecastContainerProps = {
 
 export type WeatherForecastProps = {
   detailedWeatherForecast: WeatherForecastDetailed[][]
+  selectedForecastDate: number
 }
 
 export type WeatherForecastSummaryProps = {
   metaWeatherForecast: WeatherForecastMeta
+  handleSelectedForecastDate: (index: number) => void
 }
 
 type Coordinates = {
@@ -88,6 +90,7 @@ export type WeatherForecastDetailed = {
   humidity: number,
   wx_main: string,
   wx_desc: string,
+  wx_icon: string
   precip_prob: number,
   cloud_cover: number,
   wind_deg: number

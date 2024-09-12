@@ -1,0 +1,17 @@
+#forecast-container {
+  flex: 8;
+  display: flex;
+}
+
+#forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--colNum), minmax(44px, 120px));
+  grid-template-rows: repeat(6, 1fr);
+  text-align: center;
+  overflow-x: auto;
+}
+
+.table-data {
+  border: 1px solid #ccc;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}

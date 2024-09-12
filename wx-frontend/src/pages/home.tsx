@@ -7,7 +7,7 @@ import { LocationInfo } from '../features/Search/types/searchTypes'
 
 function Home() {
   const [selectedLocation, setSelectedLocation] = useState<LocationInfo>()
-
+  
   console.log('RE-RERENDERED HOME PAGE')
   return (
     <>
@@ -18,11 +18,13 @@ function Home() {
               setSelectedLocation={setSelectedLocation}
             />
           </div>
-          <div id='recent-locations-text'>Recent Locations</div>
           <div id='recent-locations-container'>
-            <RecentLocationsContainer 
-              setSelectedLocation={setSelectedLocation}
-            />
+            <div id='recent-locations-text'>Recent Locations</div>
+            <div id='recent-locations-wrapper'>
+              <RecentLocationsContainer 
+                setSelectedLocation={setSelectedLocation}
+              />
+            </div>
           </div>
         </div>
         <div className="forecast-wrapper">

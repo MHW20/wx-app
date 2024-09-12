@@ -2,16 +2,18 @@ import { WeatherForecastSummaryProps } from "./types/weatherForecastTypes";
 import './WeatherForecastSummary.css'
 
 const WeatherForecastSummary: React.FC<WeatherForecastSummaryProps> = ({
-  metaWeatherForecast
+  metaWeatherForecast,
+  handleSelectedForecastDate
 }) => {
   return (
     <div className="summary-container">
       { metaWeatherForecast &&
-        Array.from(metaWeatherForecast?.max_temp.keys()).map((index) => {
+        metaWeatherForecast?.max_temp.map((element, index) => {
         return (
           <div 
-            className='weather-item' 
+            className='weather-item'
             key={index}
+            onClick={() => handleSelectedForecastDate(index)}
           >
             <div className='date-row'>
               <div>Tue 10th</div>
@@ -26,7 +28,7 @@ const WeatherForecastSummary: React.FC<WeatherForecastSummaryProps> = ({
               <div>{metaWeatherForecast.min_temp[index]}</div>
             </div>
           </div>
-        ) 
+        )
       })
     }
     </div>

@@ -13,3 +13,10 @@ export const apiGeo = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+export const apiIcon = axios.create({
+  baseURL: 'https://openweathermap.org/img',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
