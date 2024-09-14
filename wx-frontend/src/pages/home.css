@@ -26,9 +26,9 @@
 
 #recent-locations-container {
   position: absolute;
-  display: block;
+  display: none;
   padding: 1rem;
-  top: calc(0.5rem + 1rem + 50px); /* top margin of search-box-container */
+  top: calc(0.5rem + 1rem + 50px);
   width: min(calc(100% - 1rem), calc(1200px - 1rem));
   background-color: #328383;
   border: solid;
@@ -47,6 +47,12 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(3, minmax(250px, 1fr));
+}
+
+@media (min-height: 800px) {
+  #recent-locations-container {
+    top: calc(0.5rem + 1rem + 50px);
+  }
 }
 
 @media (max-width: 830px) {

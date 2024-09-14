@@ -7,9 +7,13 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   placeholder,
   inputValue,
   onInputChange,
+  onClick
 }) => {
   return (
-    <div id="search-box">
+    <div
+      onClick={onClick}
+      id="search-box"
+    >
       <FaSearch id="search-icon" />
       <input
         placeholder={placeholder}

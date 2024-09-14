@@ -1,11 +1,14 @@
 export type SearchContainerProps = {
-  setSelectedLocation: (value: LocationInfo) => void
+  setSelectedLocation: (value: LocationInfo) => void,
+  setToggleSearch: (value: boolean) => void,
+  toggleSearch: boolean
 }
 
 export type SearchBoxProps = {
   placeholder: string;
   inputValue: string;
   onInputChange: (value: string) => void;
+  onClick: () => void
 };
 
 export type SearchResultsListProps = {

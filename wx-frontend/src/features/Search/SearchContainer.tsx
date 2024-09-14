@@ -7,7 +7,9 @@ import SearchResultsList from "./SearchResultsList";
 import { changeCountryCodeToCountry } from "./utils/locationTransformation";
 
 const SearchContainer: React.FC<SearchContainerProps> = ({
-  setSelectedLocation
+  setSelectedLocation,
+  setToggleSearch,
+  toggleSearch
 }) => {
   const [input, setInput] = useState("");
   const [locations, setLocations] = useState<LocationInfo[]>()
@@ -21,6 +23,10 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   const handleSelectedLocation = (index: number) => {
     const selectedLocation = locations![index];
     setSelectedLocation(selectedLocation);
+  }
+
+  const handleOnClick = () => {
+    if (!toggleSearch) setToggleSearch(!toggleSearch)
   }
 
   useEffect(() => {
@@ -38,6 +44,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
         placeholder="Enter Location..."
         inputValue={input}
         onInputChange={handleInputChange}
+        onClick={handleOnClick}
       />
       {(locations) && (
         <SearchResultsList 
