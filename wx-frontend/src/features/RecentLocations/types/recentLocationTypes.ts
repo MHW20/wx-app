@@ -1,7 +1,4 @@
-import { LocationInfo } from "../../Search/types/searchTypes"
-
 export type recentLocationsContainerProps = {
-  setSelectedLocation: (value: LocationInfo) => void
 }
 
 export type simpleLocationWeather = {

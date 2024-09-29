@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { recentLocationsContainerProps, simpleLocationWeather } from "./types/recentLocationTypes";
 import './RecentLocationList.css'
 import { LocationInfo } from "../Search/types/searchTypes";
+import { updateSelectedLocation } from "../../state/location/locationSlice";
+import { useDispatch } from "react-redux";
 
 const RecentLocationsContainer: React.FC<recentLocationsContainerProps> = ({
-  setSelectedLocation
 }) => {
+  const dispatch = useDispatch()
+
   const [locationsMeta, setLocationsMeta] = useState<LocationInfo[]>(
     [{
       name:"Springfield",
@@ -57,7 +60,7 @@ const RecentLocationsContainer: React.FC<recentLocationsContainerProps> = ({
 
   const handleSelectedLocation = (index: number) => {
     const selectedLocation = locationsMeta[index];
-    setSelectedLocation(selectedLocation);
+    dispatch(updateSelectedLocation(selectedLocation));
   }
 
   return (

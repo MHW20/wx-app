@@ -1,5 +1,4 @@
 export type SearchContainerProps = {
-  setSelectedLocation: (value: LocationInfo) => void,
   setToggleSearch: (value: boolean) => void,
   toggleSearch: boolean
 }

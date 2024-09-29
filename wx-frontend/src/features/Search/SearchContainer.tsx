@@ -5,16 +5,19 @@ import { isArrayEmpty } from "../../utils/utility";
 import { LocationInfo, SearchContainerProps } from "./types/searchTypes";
 import SearchResultsList from "./SearchResultsList";
 import { changeCountryCodeToCountry } from "./utils/locationTransformation";
+import { useDispatch } from "react-redux";
+import { updateSelectedLocation, updateToggleRecentLocations } from "../../state/location/locationSlice";
 
 const SearchContainer: React.FC<SearchContainerProps> = ({
-  setSelectedLocation,
   setToggleSearch,
   toggleSearch
 }) => {
   const [input, setInput] = useState("");
   const [locations, setLocations] = useState<LocationInfo[]>()
 
-  const { isLoading, isError, data } = useLocation(input);
+  const dispatch = useDispatch()
+
+  const { isLoading, isError, data: locationData } = useLocation(input);
 
   const handleInputChange = (value: string) => {
     setInput(value);
@@ -22,7 +25,7 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const handleSelectedLocation = (index: number) => {
     const selectedLocation = locations![index];
-    setSelectedLocation(selectedLocation);
+    dispatch(updateSelectedLocation(selectedLocation));
   }
 
   const handleOnClick = () => {
@@ -30,13 +33,17 @@ const SearchContainer: React.FC<SearchContainerProps> = ({
   }
 
   useEffect(() => {
-    if (!isArrayEmpty(data)) {
-      const updatedLocations: LocationInfo[] = changeCountryCodeToCountry(data)
+    if (!isArrayEmpty(locationData)) {
+      const updatedLocations: LocationInfo[] = changeCountryCodeToCountry(locationData)
       setLocations(updatedLocations);
-      console.log("Locations : ", data);
+      console.log("Locations : ", locationData);
+      dispatch(updateToggleRecentLocations(false))
     }
-    else setLocations(data)
-  }, [data]);
+    else {
+      setLocations(locationData)
+      dispatch(updateToggleRecentLocations(true))
+    }
+  }, [locationData]);
 
   return (
     <>
